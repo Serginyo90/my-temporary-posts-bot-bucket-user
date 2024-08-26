@@ -1,15 +1,25 @@
 /*global fetch*/
 
-const handler = async (event) => {
+import { Web3 } from 'web3';
 
+const web3 = new Web3('https://eth-mainnet.g.alchemy.com/v2/ALCHEMY_TOKEN');
+
+const handler = async (event) => {
   let response;
   try {
+
+    // Fetch chain ID and gas price
+    const chainId = await web3.eth.getChainId();
+    const gasPrice = await web3.eth.getGasPrice();
+    const gasPriceGwei = web3.utils.fromWei(gasPrice, 'gwei');
+
+    // Prepare the message
+    const message = `Chain ID: ${chainId}, Gas Price (Gwei): ${parseFloat(gasPriceGwei).toFixed(2)}`;
+
     // Bot's API token
     const token = 'TELEGRAM_TOKEN';
     // Chat ID or your own Telegram user ID
     const chatId = 'CHAT_ID';
-    // Message you want to send
-    const message = 'Hello, this is a message from my bot!';
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
     const params = {
