@@ -1,4 +1,4 @@
-# my-temporary-posts-bot-bucket-user
+# eth-gas-telegram-bot
 
 ## What it does
 
